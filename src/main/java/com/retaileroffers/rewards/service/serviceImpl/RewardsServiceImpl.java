@@ -25,13 +25,13 @@ public class RewardsServiceImpl implements RewardService {
         Calculate reward earned per month and total points
      */
     @Override
-    public RewardsDto getRerwards(Long cusromerId) {
+    public RewardsDto getRewards(Long customerId) {
         RewardsDto rewardsDto=new RewardsDto();
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMMM yyyy");
-        CustomerDto customer=customerService.getCustomerById(cusromerId);
-        List<Transaction> transactions=transactionRepository.getByCustomerId(cusromerId);
+        CustomerDto customer=customerService.getCustomerById(customerId);
+        List<Transaction> transactions=transactionRepository.getByCustomerId(customerId);
         if(transactions.isEmpty())
-            throw new TransactionNotFoundException("No transaction not found for customer" +customer.getName());
+            throw new TransactionNotFoundException("No transaction found for customer " +customer.getName());
         Map<String,Integer> rewardPerMonth=transactions.stream()
                  .collect(Collectors.groupingBy(
                       t -> t.getTransactionDate().format(monthFormatter),
@@ -39,7 +39,7 @@ public class RewardsServiceImpl implements RewardService {
         ));
         rewardsDto.setRewardPerMonth(rewardPerMonth);
         rewardsDto.setTotalRewards(transactions.stream().mapToInt(Transaction::getPoints).sum());
-        rewardsDto.setCustomerId(cusromerId);
+        rewardsDto.setCustomerId(customerId);
         rewardsDto.setCustomerName(customer.getName());
         return rewardsDto;
     }

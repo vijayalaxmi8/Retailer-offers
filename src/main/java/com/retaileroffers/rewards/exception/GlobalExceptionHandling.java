@@ -33,6 +33,12 @@ public class GlobalExceptionHandling {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(RewardsNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTransactionNotFoundException(RewardsNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
 
     // Handle other exceptions globally
     @ExceptionHandler(Exception.class)

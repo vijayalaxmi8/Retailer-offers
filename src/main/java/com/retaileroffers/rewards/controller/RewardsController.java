@@ -25,7 +25,7 @@ public class RewardsController {
     @GetMapping("/{customerId}")
     @Operation(summary = "Get Reward Points for a Customer", description = "Fetches reward points by customer ID")
     public ResponseEntity<RewardsDto> getRewards(@PathVariable Long customerId) {
-        RewardsDto rewards = rewardService.getRerwards(customerId);
+        RewardsDto rewards = rewardService.getRewards(customerId);
         if (rewards == null) {
             throw new RuntimeException("Customer not found or has no rewards");
         }
