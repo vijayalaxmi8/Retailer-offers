@@ -34,7 +34,7 @@ cd Retailer-offers
 mvn clean package
 
 ### **4️⃣ Run the Application**
-java -jar target/Retailer-offers-1.0.0.jar
+java -jar target/rewards-0.0.1-SNAPSHOT.jar
 By default, the application will start on `http://localhost:8080`
 
 ### **5️⃣ Run in Development Mode**
